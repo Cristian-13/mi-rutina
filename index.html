@@ -1,6 +1,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <link rel="manifest" href="manifest.webmanifest">
+<script src="version.js"></script>
 <script type="module" src="js/analisis.js"></script>
 <link rel="icon" href="icono-192.png">
 <link rel="apple-touch-icon" href="icono-192.png">
@@ -1025,7 +1026,59 @@ const ADAPTA = {
    4. ESTADO
    ══════════════════════════════════════════════════════════════ */
 
-const KEY = "mirutina.v3";
+/* ── Almacenamiento ──────────────────────────────────────────────
+   Los datos viven bajo una clave estable. Lo que cambia entre versiones no es
+   la clave, sino el número de versión que llevan dentro: así una actualización
+   nunca deja el historial huérfano en una clave vieja que nadie vuelve a leer. */
+
+const CLAVE = "mirutina";
+const VERSION_DATOS = 4;
+const CLAVES_ANTERIORES = ["mirutina.v3", "mirutina.v2", "mirutina.v1"];
+
+const PERFIL_POR_DEFECTO = { nombre: "", nivel: "cero", dias: 3, molestias: [], acceso: [], variante: "base" };
+
+/** Datos guardados por una versión más nueva de la app. Puede pasar si el móvil
+    abre una copia cacheada vieja: en ese caso NO se escribe, para no destruir
+    lo que ya hay. */
+let SOLO_LECTURA = false;
+
+function leerCrudo(clave) {
+  try { const r = localStorage.getItem(clave); return r ? JSON.parse(r) : null; }
+  catch (e) { return null; }
+}
+
+/** Convierte lo guardado a la forma que entiende esta versión. */
+function migrar(d) {
+  if (!d) return null;
+  const version = d.version || 3;   // lo anterior a que existieran versiones era la 3
+  const out = {
+    version: VERSION_DATOS,
+    perfil: d.perfil ? Object.assign({}, PERFIL_POR_DEFECTO, d.perfil) : null,
+    historial: Array.isArray(d.historial) ? d.historial : [],
+    peso: Array.isArray(d.peso) ? d.peso : []
+  };
+  // Las sesiones del plan A/B anterior guardaban series por ejercicio, no postas
+  // de un circuito. No hay forma honesta de convertirlas, así que no se cuelan
+  // en las estadísticas; el peso corporal y el perfil sí se conservan.
+  out.historial = out.historial.filter(s => s && s.postas && typeof s.postas === "object");
+  if (version < 3) out.descartadas = (Array.isArray(d.historial) ? d.historial.length : 0);
+  return out;
+}
+
+function cargar() {
+  let crudo = leerCrudo(CLAVE);
+  if (!crudo) {
+    for (const vieja of CLAVES_ANTERIORES) {
+      const previo = leerCrudo(vieja);
+      if (previo) { crudo = previo; break; }
+    }
+  }
+  if (crudo && (crudo.version || 0) > VERSION_DATOS) {
+    SOLO_LECTURA = true;
+    console.warn("Datos de una versión más nueva: no se escribirá nada.");
+  }
+  return migrar(crudo) || { version: VERSION_DATOS, historial: [], peso: [], perfil: null };
+}
 
 /** ¿Este navegador guarda de verdad? Dentro de un marco aislado —como el visor
     de artifacts— el almacenamiento se deniega o se borra al cerrar, y conviene
@@ -1052,19 +1105,15 @@ if ("serviceWorker" in navigator && location.protocol === "https:") {
 
 let state = cargar();
 
-function cargar() {
-  try {
-    const raw = localStorage.getItem(KEY);
-    if (raw) {
-      const d = JSON.parse(raw);
-      return { historial: d.historial || [], peso: d.peso || [], perfil: d.perfil || null };
-    }
-  } catch (e) { /* sin almacenamiento o dato corrupto: se empieza limpio */ }
-  return { historial: [], peso: [], perfil: null };
-}
 function guardar() {
-  try { localStorage.setItem(KEY, JSON.stringify(state)); }
-  catch (e) { toast("Este navegador no deja guardar datos"); }
+  if (SOLO_LECTURA) {
+    toast("Hay datos de una versión más nueva: recarga la app antes de entrenar");
+    return;
+  }
+  try {
+    state.version = VERSION_DATOS;
+    localStorage.setItem(CLAVE, JSON.stringify(state));
+  } catch (e) { toast("Este navegador no deja guardar datos"); }
 }
 function perfil() {
   return state.perfil || { nombre: "", nivel: "cero", dias: 3, molestias: [], acceso: [], variante: "base" };
@@ -1749,7 +1798,9 @@ function pintarGuia() {
     '<div class="b"><span>Días</span><span style="font-family:var(--body);font-size:14px;color:var(--ink)">' + p.dias + " por semana</span></div>" +
     '<div class="b"><span>Variante</span><span style="font-family:var(--body);font-size:14px;color:var(--ink)">' + esc(v.nombre) + "</span></div>" +
     '<div class="b"><span>Molestias</span><span style="font-family:var(--body);font-size:14px;color:var(--ink)">' + esc(molTxt) + "</span></div></div>" +
-    '<div style="height:14px"></div><button class="btn wide" id="editPerfil">Cambiar mi plan</button>';
+    '<div style="height:14px"></div><button class="btn wide" id="editPerfil">Cambiar mi plan</button>' +
+    '<div class="note" style="text-align:center;padding-bottom:0">Versión ' + esc(window.VERSION_APP || "?") +
+    " · datos v" + VERSION_DATOS + "</div>";
 
   $("editPerfil").addEventListener("click", abrirOnboarding);
 }
@@ -1813,7 +1864,8 @@ function abrirOnboarding() {
    ══════════════════════════════════════════════════════════════ */
 
 $("expBtn").addEventListener("click", async () => {
-  const datos = JSON.stringify({ app: "mirutina", version: 3, exportado: hoyISO(),
+  const datos = JSON.stringify({ app: "mirutina", version: VERSION_DATOS,
+    versionApp: window.VERSION_APP || "", exportado: hoyISO(),
     perfil: state.perfil, historial: state.historial, peso: state.peso }, null, 2);
   const nombre = "mi-rutina-" + hoyISO() + ".json";
   if (window.claude && window.claude.downloads) {
@@ -1840,7 +1892,8 @@ $("impFile").addEventListener("change", ev => {
       const d = JSON.parse(lector.result);
       if (!Array.isArray(d.historial)) throw new Error("formato");
       if (!confirm("Esto reemplaza tus datos actuales por los del archivo. ¿Continuar?")) return;
-      state = { historial: d.historial, peso: Array.isArray(d.peso) ? d.peso : [], perfil: d.perfil || state.perfil };
+      const m = migrar(d);
+      state = { version: VERSION_DATOS, historial: m.historial, peso: m.peso, perfil: m.perfil || state.perfil };
       guardar(); ir("progreso");
       toast("Importado: " + state.historial.length + " sesiones");
     } catch (e) { toast("Ese archivo no es una copia válida"); }

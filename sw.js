@@ -3,11 +3,16 @@
    gimnasio, en el parque o con el móvil en modo avión. Al publicar una versión
    nueva basta con subir el número de CACHE. */
 
-const CACHE = "mi-rutina-v6";
+importScripts("./version.js");
+
+// El nombre del caché lleva la versión: al cambiarla, el navegador descarta
+// automáticamente todo lo guardado de la anterior.
+const CACHE = "mi-rutina-" + self.VERSION_APP;
 const ARCHIVOS = [
   "./",
   "./index.html",
   "./manifest.webmanifest",
+  "./version.js",
   "./css/tokens.css",
   "./css/base.css",
   "./css/componentes.css",

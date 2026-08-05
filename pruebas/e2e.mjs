@@ -155,7 +155,50 @@ async function principal() {
   const analisis = await pag.evaluate(() => window.Analisis.porEjercicio(state.historial, CIRCUITO));
   comprueba("el análisis sale de datos reales", analisis.some(f => f.sesiones > 0 && f.mejor > 0));
 
+  console.log("\nMigracion de datos");
+  // Se simula un movil que venia de la version anterior: datos bajo la clave
+  // vieja, sin numero de version. Al abrir, deben leerse y quedar sellados.
+  await pag.evaluate(() => {
+    const antiguo = {
+      perfil: { nombre: "Antiguo", nivel: "algo", dias: 3, molestias: [] },
+      peso: [{ fecha: "2026-07-01", kg: 80 }],
+      historial: [{ fecha: "2026-07-01", variante: "base", semana: 1, duracion: 25,
+                    postas: { sentadilla: { valor: "12", hecho: true } } }]
+    };
+    localStorage.clear();
+    localStorage.setItem("mirutina.v3", JSON.stringify(antiguo));
+  });
+  await pag.reload();
+  await pag.waitForTimeout(500);
+  const migrado = await pag.evaluate(() => ({
+    sesiones: state.historial.length,
+    nombre: (state.perfil || {}).nombre,
+    peso: state.peso.length,
+    acceso: Array.isArray((state.perfil || {}).acceso),
+    version: state.version
+  }));
+  comprueba("rescata el historial de la clave anterior", migrado.sesiones === 1, JSON.stringify(migrado));
+  comprueba("conserva perfil y peso corporal", migrado.nombre === "Antiguo" && migrado.peso === 1);
+  comprueba("rellena los campos que el perfil no tenia", migrado.acceso === true);
+  await pag.evaluate(() => guardar());
+  const sellado = await pag.evaluate(() => JSON.parse(localStorage.getItem("mirutina")).version);
+  comprueba("sella la version al guardar", sellado === 4, "version " + sellado);
+
+  // Y datos de una version futura no se pisan jamas.
+  await pag.evaluate(() => {
+    localStorage.setItem("mirutina", JSON.stringify({ version: 99, historial: [{ fecha: "2030-01-01", postas: {} }], peso: [], perfil: null }));
+  });
+  await pag.reload();
+  await pag.waitForTimeout(500);
+  await pag.evaluate(() => { state.historial = []; guardar(); });
+  const intacto = await pag.evaluate(() => JSON.parse(localStorage.getItem("mirutina")).version);
+  comprueba("no destruye datos de una version mas nueva", intacto === 99, "quedo en v" + intacto);
+  await pag.evaluate(() => localStorage.clear());
+  await pag.reload();
+  await pag.waitForTimeout(400);
+
   console.log("\nCopia de seguridad");
+  await pag.evaluate(SEMBRAR(3));
   const copia = await pag.evaluate(() => JSON.stringify({ historial: state.historial, peso: state.peso, perfil: state.perfil }));
   comprueba("el estado se serializa entero", JSON.parse(copia).historial.length > 0);
 
