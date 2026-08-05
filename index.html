@@ -1,6 +1,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <link rel="manifest" href="manifest.webmanifest">
+<script type="module" src="js/analisis.js"></script>
 <link rel="icon" href="icono-192.png">
 <link rel="apple-touch-icon" href="icono-192.png">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -386,6 +387,23 @@
   .kpis .v { font-family: var(--data); font-size: 24px; font-weight: 600; letter-spacing: -.03em; font-variant-numeric: tabular-nums; }
   .kpis .l { font-family: var(--data); font-size: 9.5px; letter-spacing: .11em; text-transform: uppercase; color: var(--ink-3); margin-top: 3px; }
   .kpis .d { font-family: var(--data); font-size: 11px; margin-top: 5px; }
+  .hallazgos { display: flex; flex-direction: column; }
+  .hallazgo { padding: 14px 16px; border-top: 1px solid var(--hair); display: flex; gap: 12px; }
+  .hallazgo:first-child { border-top: 0; }
+  .hallazgo .marca { width: 4px; border-radius: 2px; flex: none; background: var(--ink-3); }
+  .hallazgo.accion .marca { background: var(--accent); }
+  .hallazgo.aviso .marca { background: var(--hot); }
+  .hallazgo.bien .marca { background: var(--done); }
+  .hallazgo b { display: block; font-family: var(--display); font-size: 15px; margin-bottom: 3px; }
+  .hallazgo p { font-size: 14px; margin: 0; }
+  table.fichas { width: 100%; border-collapse: collapse; font-size: 13.5px; }
+  table.fichas th, table.fichas td { text-align: left; padding: 9px 16px; border-top: 1px solid var(--hair); }
+  table.fichas th { font-family: var(--data); font-size: 9.5px; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-3); font-weight: 400; border-top: 0; }
+  table.fichas td.n { font-family: var(--data); text-align: right; font-variant-numeric: tabular-nums; }
+  .etq { font-family: var(--data); font-size: 10px; letter-spacing: .06em; text-transform: uppercase; padding: 2px 6px; border-radius: 3px; background: var(--surface-2); color: var(--ink-2); }
+  .etq.subiendo { background: var(--done-bg); color: var(--done); }
+  .etq.estancado { background: var(--accent-bg); color: var(--accent-ink); }
+  .etq.bajando { background: rgba(195,63,44,.12); color: var(--hot); }
   .alerta { background: var(--hot); color: #fff; border-radius: 7px; padding: 14px 16px; }
   .alerta b { display: block; font-family: var(--display); font-size: 15px; margin-bottom: 4px; }
   .alerta p { color: rgba(255,255,255,.9); font-size: 14px; margin: 0; max-width: none; }
@@ -461,6 +479,15 @@
   <!-- ══════ PROGRESO ══════ -->
   <section class="screen" id="s-progreso">
     <div class="stack">
+      <div>
+        <h2 class="sec">Qué dicen tus datos</h2>
+        <div class="panel"><div class="hallazgos" id="hallazgos"></div></div>
+      </div>
+      <div>
+        <h2 class="sec">Ejercicio por ejercicio</h2>
+        <div class="panel"><table class="fichas" id="fichas"></table></div>
+        <div class="note">Sale todo de lo que has apuntado tú. Donde no hay marcas suficientes, no hay conclusión.</div>
+      </div>
       <div>
         <h2 class="sec">Resumen</h2>
         <div class="panel"><div class="statgrid" id="statsBox"></div><div class="kpis" id="kpisBox"></div></div>
@@ -1960,6 +1987,7 @@ function pintarProgreso() {
     '<div><div class="v">' + rachaSemanas() + '</div><div class="l">Semanas seguidas</div></div>' +
     '<div><div class="v">' + postasHechas + '</div><div class="l">Postas hechas</div></div>';
 
+  pintarAnalisis();
   pintarKpis();
   pintarMapa();
   pintarCarga();
@@ -2539,6 +2567,44 @@ function pintarResumen(s) {
 /* ══════════════════════════════════════════════════════════════
    16. ESTADÍSTICAS
    ══════════════════════════════════════════════════════════════ */
+
+/** Nombre legible de una posta, para que el análisis no hable en clave. */
+function nombreDePosta(id) {
+  const b = CIRCUITO.find(x => x.id === id);
+  return b ? (b.alias || EJ[b.ej].nombre) : id;
+}
+
+function pintarAnalisis() {
+  const A = window.Analisis;
+  if (!A) { $("hallazgos").innerHTML = '<div class="hallazgo"><span class="marca"></span><p>Cargando el análisis…</p></div>'; return; }
+
+  const hs = A.hallazgos(state.historial, CIRCUITO, perfil(), nombreDePosta);
+  $("hallazgos").innerHTML = hs.length
+    ? hs.map(x => '<div class="hallazgo ' + x.tipo + '"><span class="marca"></span>' +
+        "<div><b>" + esc(x.titulo) + "</b><p>" + esc(x.texto) + "</p></div></div>").join("")
+    : '<div class="hallazgo"><span class="marca"></span><div><b>Todo en orden</b>' +
+      "<p>No hay nada que corregir ahora mismo: constancia bien, marcas subiendo y ninguna posta atascada.</p></div></div>";
+
+  const fichas = A.porEjercicio(state.historial, CIRCUITO).filter(f => f.registrable);
+  $("fichas").innerHTML =
+    "<tr><th>Ejercicio</th><th>1.ª → mejor</th><th>Estado</th></tr>" +
+    fichas.map(f => {
+      const et = f.estado === "subiendo" ? "subiendo" : f.estado === "estancado" ? "estancado"
+               : f.estado === "bajando" ? "bajando" : "";
+      const detalle = f.sesiones >= 2
+        ? f.primera + " → " + f.mejor + (f.progreso ? '  <span class="delta ' + (f.progreso > 0 ? "up" : "flat") + '">' +
+            (f.progreso > 0 ? "+" : "") + f.progreso + "%</span>" : "")
+        : (f.sesiones === 1 ? String(f.ultima) : "—");
+      return "<tr><td>" + esc(nombreDePosta(f.id)) +
+        '<br><span class="note" style="padding:0">' + f.sesiones + (f.sesiones === 1 ? " marca" : " marcas") + "</span></td>" +
+        '<td class="n">' + detalle + "</td>" +
+        '<td><span class="etq ' + et + '">' + esc(f.estado) + "</span></td></tr>";
+    }).join("");
+}
+
+window.addEventListener("analisis-listo", () => {
+  if (document.getElementById("s-progreso").classList.contains("on")) pintarAnalisis();
+});
 
 function pintarKpis() {
   const h = state.historial;

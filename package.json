@@ -1,0 +1,13 @@
+{
+  "name": "mi-rutina",
+  "version": "1.0.0",
+  "description": "Circuito de entrenamiento guiado, instalable en el móvil y sin conexión.",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node pruebas/e2e.mjs"
+  },
+  "devDependencies": {
+    "playwright": "^1.49.0"
+  }
+}
