@@ -59,12 +59,17 @@ se abre dentro de un visor que la mete en un marco aislado, el navegador deniega
 ese almacenamiento y los datos se pierden al cerrar. La app lo detecta y avisa
 en rojo en vez de perderlos en silencio.
 
-Para publicarla con GitHub Pages:
+Se publica sola en **Netlify**, que es lo que configura `netlify.toml`: cada vez
+que algo llega a `main` se despliega, y cada pull request trae su propia
+dirección de prueba. No hay nada que construir, así que el despliegue es copiar
+los archivos tal cual. El nombre del sitio se cambia desde el panel de Netlify.
 
-1. **Settings → Pages** en este repositorio.
-2. En *Source*, **Deploy from a branch**.
-3. Rama `main`, carpeta `/ (root)`. Guardar.
-4. Al minuto queda en `https://<usuario>.github.io/mi-rutina/`.
+> **Una sola dirección, siempre la misma.** El historial vive en el
+> almacenamiento del navegador, y ese almacenamiento va por dirección. Si la
+> misma app se publica también en otro sitio —GitHub Pages, otro dominio, la
+> dirección de prueba de un pull request—, lo que entrenes en una no aparece en
+> la otra, y no hay forma de juntarlas después salvo exportando e importando a
+> mano. Elige una dirección, instálala desde ahí y no vuelvas a tocarlo.
 
 Y para instalarla, con esa dirección abierta en el móvil:
 
