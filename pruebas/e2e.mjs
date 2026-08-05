@@ -7,7 +7,7 @@
    Existe para poder reorganizar el código sin romper nada sin enterarse. */
 
 import { createServer } from "node:http";
-import { readFile } from "node:fs/promises";
+import { readFile, readdir } from "node:fs/promises";
 import { extname, join, normalize } from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -43,6 +43,79 @@ function comprueba(que, condicion, detalle) {
   else { fallos.push(que + (detalle ? " → " + detalle : "")); console.log("  ✗ " + que + (detalle ? " → " + detalle : "")); }
 }
 
+/* ── revisión de los datos y del inventario, antes de abrir el navegador ──
+   El circuito vive en JSON y la app en módulos sueltos: dos cosas que se
+   rompen en silencio si un identificador deja de existir o si un archivo nuevo
+   no entra en el service worker. Eso se ve antes de arrancar nada. */
+
+async function listar(rel) {
+  const out = [];
+  for (const e of await readdir(join(RAIZ, rel), { withFileTypes: true })) {
+    if (e.isDirectory()) out.push(...await listar(rel + e.name + "/"));
+    else out.push(rel + e.name);
+  }
+  return out;
+}
+const leerJSON = async (rel) => JSON.parse(await readFile(join(RAIZ, rel), "utf8"));
+
+async function revisarDatosYInventario() {
+  console.log("\nLos datos y el inventario");
+
+  const EJ = await leerJSON("datos/ejercicios.json");
+  const { postas, calentamiento, vuelta } = await leerJSON("datos/circuito.json");
+  const { variantes, accesos } = await leerJSON("datos/variantes.json");
+  const ADAPTA = await leerJSON("datos/adaptaciones.json");
+
+  const ids = new Set(postas.map(p => p.id));
+  const existe = (ej) => Object.prototype.hasOwnProperty.call(EJ, ej);
+  const rotos = [];
+
+  // Un ejercicio con `igualQue` hereda del original: hay que mirarlo ya resuelto,
+  // igual que hace la app al cargar el catálogo.
+  Object.entries(EJ).forEach(([id, propio]) => {
+    if (propio.igualQue && !existe(propio.igualQue)) { rotos.push(id + " deriva de " + propio.igualQue); return; }
+    const e = Object.assign({}, propio.igualQue ? EJ[propio.igualQue] : null, propio);
+    if (!(e.nombre && Array.isArray(e.musculos) && Array.isArray(e.cues) && e.facil && e.dificil))
+      rotos.push(id + " está incompleto");
+    if (!Array.isArray(e.poses) || e.poses.length !== 2) rotos.push(id + " no tiene dos posturas");
+  });
+  comprueba("los ejercicios están completos y bien encadenados", !rotos.length, rotos.join(" · "));
+
+  const huerfanos = [];
+  postas.forEach(p => {
+    if (!existe(p.ej)) huerfanos.push("posta " + p.id + " → " + p.ej);
+    if (p.alt && !existe(p.alt.ej)) huerfanos.push("alternativa de " + p.id + " → " + p.alt.ej);
+  });
+  Object.entries(variantes).forEach(([v, def]) => {
+    if (def.falta && !accesos[def.falta]) huerfanos.push("variante " + v + " pide un acceso que no existe");
+    Object.entries(def.postas).forEach(([id, cam]) => {
+      if (!ids.has(id)) huerfanos.push("variante " + v + " cambia la posta " + id + ", que no está en el circuito");
+      if (cam.ej && !existe(cam.ej)) huerfanos.push("variante " + v + " → " + cam.ej);
+    });
+  });
+  Object.entries(ADAPTA).forEach(([zona, cambios]) => {
+    Object.entries(cambios).forEach(([id, cam]) => {
+      if (!ids.has(id)) huerfanos.push("la adaptación de " + zona + " toca la posta " + id + ", que no está en el circuito");
+      if (cam.ej && !existe(cam.ej)) huerfanos.push("adaptación de " + zona + " → " + cam.ej);
+      if (cam.usarAlt && !(postas.find(p => p.id === id) || {}).alt)
+        huerfanos.push("la adaptación de " + zona + " pide la alternativa de " + id + ", que no la tiene");
+    });
+  });
+  comprueba("nada del circuito apunta a un ejercicio que no existe", !huerfanos.length, huerfanos.join(" · "));
+
+  comprueba("el circuito tiene once postas con identificador único",
+    postas.length === 11 && ids.size === 11, postas.length + " postas, " + ids.size + " identificadores");
+  comprueba("hay calentamiento y vuelta a la calma",
+    calentamiento.length > 0 && vuelta.length > 0);
+
+  // Lo que no esté en el service worker, sin conexión no está.
+  const sw = await readFile(join(RAIZ, "sw.js"), "utf8");
+  const necesarios = [...await listar("js/"), ...await listar("datos/"), ...await listar("css/")];
+  const olvidados = necesarios.filter(f => !sw.includes('"./' + f + '"'));
+  comprueba("el service worker guarda todos los módulos y todos los datos",
+    !olvidados.length, "faltan: " + olvidados.join(", "));
+}
+
 async function navegador() {
   let chromium;
   try { ({ chromium } = await import("playwright")); }
@@ -63,6 +136,8 @@ const SEMBRAR = (n) => `(() => {
 })()`;
 
 async function principal() {
+  await revisarDatosYInventario();
+
   const srv = servidor();
   await new Promise(r => srv.listen(PUERTO, r));
   const nav = await navegador();

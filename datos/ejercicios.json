@@ -1,0 +1,553 @@
+{
+  "flexion": {
+    "nombre": "Flexiones",
+    "musculos": ["Pecho", "Hombros", "Brazos"],
+    "atrezo": [["esterilla", 96, 286]],
+    "poses": [
+      {
+        "cad": [176, 148],
+        "tors": -12,
+        "pieN": [96, 176],
+        "pieF": [86, 176],
+        "manN": [252, 172],
+        "manF": [244, 174],
+        "flexCod": 1
+      },
+      {
+        "cad": [176, 158],
+        "tors": -6,
+        "pieN": [96, 176],
+        "pieF": [86, 176],
+        "manN": [252, 172],
+        "manF": [244, 174],
+        "flexCod": 1
+      }
+    ],
+    "cues": [
+      "Manos en el suelo, algo más anchas que los hombros.",
+      "Cuerpo en línea recta de la cabeza a los talones: aprieta abdomen y glúteos.",
+      "Baja hasta que el pecho casi toque, codos a 45°, no abiertos en T.",
+      "Sube empujando el suelo lejos de ti."
+    ],
+    "facil": "Manos en una mesa o en la pared: cuanto más de pie, más fácil",
+    "dificil": "Pared → mesa → silla → rodillas en el suelo → suelo"
+  },
+  "sentadilla": {
+    "nombre": "Sentadillas",
+    "musculos": ["Piernas", "Glúteos"],
+    "poses": [
+      { "cad": [166, 98], "manN": [196, 112], "manF": [188, 116] },
+      { "cad": [152, 126], "tors": -62, "manN": [214, 112], "manF": [206, 116] }
+    ],
+    "cues": [
+      "Pies al ancho de los hombros, puntas un poco hacia fuera.",
+      "Manda el culo hacia atrás, como si te sentaras en una silla invisible.",
+      "Las rodillas apuntan hacia donde apuntan los pies.",
+      "Baja hasta donde puedas con la espalda recta y sube con el pecho alto."
+    ],
+    "facil": "Baja hasta tocar una silla y levántate",
+    "dificil": "Baja más, más despacio, o con una mochila cargada"
+  },
+  "caminar": {
+    "nombre": "Caminar",
+    "musculos": ["Recuperación"],
+    "ritmo": 1800,
+    "poses": [
+      {
+        "cad": [160, 104],
+        "tors": -88,
+        "pieN": [186, 176],
+        "pieF": [134, 176],
+        "manN": [140, 140],
+        "manF": [180, 138]
+      },
+      {
+        "cad": [160, 104],
+        "tors": -88,
+        "pieN": [134, 176],
+        "pieF": [186, 176],
+        "manN": [180, 138],
+        "manF": [140, 140]
+      }
+    ],
+    "cues": [
+      "De pie y en movimiento. Esto no es un descanso sentado.",
+      "Camina a paso vivo, respirando por la nariz si puedes.",
+      "Sirve para que el pulso baje un poco sin que el cuerpo se enfríe.",
+      "Si te sientas, el circuito pierde la mitad de su efecto."
+    ],
+    "facil": "Camina más despacio, pero sigue de pie",
+    "dificil": "Trota suave en vez de caminar"
+  },
+  "marcha": {
+    "nombre": "Marcha en el sitio",
+    "musculos": ["Piernas", "Pulso"],
+    "ritmo": 1400,
+    "poses": [
+      {
+        "cad": [160, 102],
+        "tors": -88,
+        "pieN": [172, 138],
+        "pieF": [152, 176],
+        "manN": [142, 128],
+        "manF": [180, 132],
+        "flexRod": -1
+      },
+      {
+        "cad": [160, 102],
+        "tors": -88,
+        "pieN": [166, 176],
+        "pieF": [150, 138],
+        "manN": [180, 132],
+        "manF": [142, 128],
+        "flexRod": -1
+      }
+    ],
+    "cues": [
+      "De pie, sube una rodilla y luego la otra, sin saltar.",
+      "Sube la rodilla hasta la altura de la cadera si puedes.",
+      "Acompaña con los brazos, como si corrieras en el sitio.",
+      "Mantén el ritmo constante todo el tiempo que marque el reloj."
+    ],
+    "facil": "Sube menos las rodillas y ve más lento",
+    "dificil": "Más rápido, o rodillas más altas"
+  },
+  "plancha": {
+    "nombre": "Plancha",
+    "musculos": ["Core"],
+    "ritmo": 4200,
+    "atrezo": [["esterilla", 96, 276]],
+    "poses": [
+      {
+        "cad": [190, 154],
+        "tors": -16,
+        "pieN": [115, 176],
+        "pieF": [106, 176],
+        "manN": [258, 172],
+        "manF": [252, 174],
+        "flexCod": 1
+      },
+      {
+        "cad": [190, 150],
+        "tors": -16,
+        "pieN": [115, 176],
+        "pieF": [106, 176],
+        "manN": [258, 172],
+        "manF": [252, 174],
+        "flexCod": 1
+      }
+    ],
+    "cues": [
+      "Antebrazos en el suelo, justo debajo de los hombros.",
+      "Mete un poco la pelvis y aprieta abdomen y glúteos.",
+      "Cadera ni hundida ni levantada: una tabla recta.",
+      "Respira. Si la cadera cae, se acabó, aunque falte tiempo."
+    ],
+    "facil": "Con las rodillas apoyadas, o de pie contra la pared",
+    "dificil": "Más segundos, y después levantar un pie del suelo"
+  },
+  "zancada": {
+    "nombre": "Zancadas caminando",
+    "musculos": ["Piernas", "Glúteos"],
+    "poses": [
+      {
+        "cad": [150, 104],
+        "pieN": [176, 176],
+        "pieF": [116, 176],
+        "manN": [162, 142],
+        "manF": [140, 140]
+      },
+      {
+        "cad": [150, 130],
+        "tors": -86,
+        "pieN": [176, 176],
+        "pieF": [116, 176],
+        "manN": [162, 166],
+        "manF": [140, 164]
+      }
+    ],
+    "cues": [
+      "Da un paso largo hacia delante y baja recto hacia el suelo.",
+      "La rodilla de atrás casi toca el suelo; la de delante no pasa de la punta del pie.",
+      "Sube empujando con el talón de la pierna de delante.",
+      "Encadena: el siguiente paso lo das con la otra pierna, avanzando."
+    ],
+    "facil": "En el sitio y apoyándote en una pared, o bajando menos",
+    "dificil": "Pasos más largos, o con una mochila cargada a la espalda"
+  },
+  "escalador": {
+    "nombre": "Escaladores",
+    "musculos": ["Core", "Hombros", "Pulso"],
+    "ritmo": 1500,
+    "atrezo": [["esterilla", 96, 286]],
+    "poses": [
+      {
+        "cad": [178, 140],
+        "tors": -14,
+        "pieN": [110, 176],
+        "pieF": [102, 176],
+        "manN": [250, 176],
+        "manF": [242, 174],
+        "flexCod": 1
+      },
+      {
+        "cad": [178, 140],
+        "tors": -14,
+        "pieN": [204, 156],
+        "pieF": [102, 176],
+        "manN": [250, 176],
+        "manF": [242, 174],
+        "flexCod": 1
+      }
+    ],
+    "cues": [
+      "Posición de plancha con los brazos estirados, manos bajo los hombros.",
+      "Lleva una rodilla hacia el pecho y vuelve a estirarla.",
+      "Cambia de pierna sin parar, como si corrieras en el suelo.",
+      "La cadera se queda baja: no la subas cada vez que cambias."
+    ],
+    "facil": "Más lento, o con las manos apoyadas en una silla",
+    "dificil": "Más rápido, sin perder la línea del cuerpo"
+  },
+  "burpee": {
+    "nombre": "Burpees",
+    "musculos": ["Todo el cuerpo", "Pulso"],
+    "ritmo": 2200,
+    "poses": [
+      {
+        "cad": [160, 88],
+        "tors": -90,
+        "pieN": [160, 162],
+        "pieF": [152, 164],
+        "manN": [176, -4],
+        "manF": [168, 0],
+        "escala": 0.9
+      },
+      {
+        "cad": [178, 140],
+        "tors": -14,
+        "pieN": [110, 176],
+        "pieF": [102, 176],
+        "manN": [250, 176],
+        "manF": [242, 174],
+        "flexCod": 1,
+        "escala": 0.9
+      }
+    ],
+    "cues": [
+      "De pie, agáchate y apoya las manos en el suelo.",
+      "Lleva los pies atrás de un salto hasta quedar en plancha.",
+      "Vuelve a meter los pies bajo el cuerpo y levántate.",
+      "Arriba, estírate del todo. Si puedes, da un salto pequeño."
+    ],
+    "facil": "Sin salto, sacando un pie cada vez en vez de los dos a la vez",
+    "dificil": "Con salto arriba, y una flexión abajo en cada repetición"
+  },
+  "jack": {
+    "nombre": "Jumping jacks",
+    "musculos": ["Pulso", "Hombros"],
+    "ritmo": 1300,
+    "frontal": true,
+    "poses": [
+      {
+        "cad": [160, 100],
+        "pieN": [168, 176],
+        "pieF": [152, 176],
+        "manN": [172, 142],
+        "manF": [148, 142]
+      },
+      {
+        "cad": [160, 110],
+        "pieN": [192, 176],
+        "pieF": [128, 176],
+        "manN": [198, 42],
+        "manF": [122, 42]
+      }
+    ],
+    "cues": [
+      "De pie, pies juntos y brazos a los lados.",
+      "Salta abriendo las piernas y subiendo los brazos por encima de la cabeza.",
+      "Vuelve a cerrar en el mismo salto. Cae con la rodilla algo blanda.",
+      "Es la alternativa a los burpees: mismo objetivo, mucho menos exigente."
+    ],
+    "facil": "Sin salto: saca una pierna al lado y sube los brazos",
+    "dificil": "Más rápido, aguantando los 45 segundos sin parar"
+  },
+  "oso": {
+    "nombre": "Gateo de oso",
+    "musculos": ["Core", "Hombros", "Piernas"],
+    "ritmo": 2000,
+    "atrezo": [["esterilla", 86, 286]],
+    "poses": [
+      {
+        "cad": [170, 124],
+        "tors": 0,
+        "pieN": [146, 172],
+        "pieF": [138, 174],
+        "manN": [228, 176],
+        "manF": [220, 174],
+        "flexRod": -1,
+        "flexCod": 1
+      },
+      {
+        "cad": [170, 124],
+        "tors": 0,
+        "pieN": [130, 170],
+        "pieF": [150, 172],
+        "manN": [248, 176],
+        "manF": [226, 174],
+        "flexRod": -1,
+        "flexCod": 1
+      }
+    ],
+    "cues": [
+      "A cuatro patas, con las rodillas separadas del suelo un palmo.",
+      "Avanza moviendo a la vez la mano de un lado y el pie del contrario.",
+      "La cadera se queda baja y quieta: no bailes de lado a lado.",
+      "Diez pasos hacia delante y diez hacia atrás, sin apoyar las rodillas."
+    ],
+    "facil": "Apoyando las rodillas, o solo hacia delante",
+    "dificil": "Más lento y más bajo, o con pasos más largos"
+  },
+  "pared": {
+    "nombre": "Sentadilla en la pared",
+    "musculos": ["Piernas"],
+    "ritmo": 4200,
+    "atrezo": [["pared", 128, 40]],
+    "poses": [
+      {
+        "cad": [140, 128],
+        "pieN": [186, 176],
+        "pieF": [178, 176],
+        "manN": [186, 126],
+        "manF": [178, 130]
+      },
+      {
+        "cad": [140, 124],
+        "pieN": [186, 176],
+        "pieF": [178, 176],
+        "manN": [186, 122],
+        "manF": [178, 126]
+      }
+    ],
+    "cues": [
+      "Espalda pegada a la pared y pies separados de ella un paso.",
+      "Baja deslizando la espalda hasta que los muslos queden casi horizontales.",
+      "Rodillas justo encima de los tobillos, nunca por delante de la punta del pie.",
+      "Aguanta respirando. Va a quemar: de eso se trata."
+    ],
+    "facil": "Baja menos, con las rodillas más abiertas de 90°",
+    "dificil": "Más tiempo, o levantando un talón del suelo"
+  },
+  "nadar": {
+    "nombre": "Nadar",
+    "musculos": ["Todo el cuerpo", "Pulso"],
+    "ritmo": 2400,
+    "atrezo": [["agua", 138]],
+    "poses": [
+      {
+        "cad": [160, 152],
+        "tors": 0,
+        "pieN": [92, 152],
+        "pieF": [86, 158],
+        "manN": [248, 142],
+        "manF": [186, 160],
+        "flexRod": -1,
+        "flexCod": 1
+      },
+      {
+        "cad": [160, 152],
+        "tors": 0,
+        "pieN": [92, 158],
+        "pieF": [86, 150],
+        "manN": [196, 162],
+        "manF": [244, 144],
+        "flexRod": -1,
+        "flexCod": 1
+      }
+    ],
+    "cues": [
+      "Largos suaves, sin buscar velocidad: es un calentamiento.",
+      "Respira cada dos o tres brazadas, sin ahogarte.",
+      "Si no sabes nadar bien, camina dentro del agua hasta la cintura.",
+      "De 3 a 4 minutos bastan para llegar caliente al circuito."
+    ],
+    "facil": "Camina dentro del agua en vez de nadar",
+    "dificil": "Largos más rápidos, o alternando estilos"
+  },
+  "flote": {
+    "nombre": "Mantenerse a flote",
+    "musculos": ["Core", "Piernas", "Hombros"],
+    "ritmo": 1800,
+    "frontal": true,
+    "atrezo": [["agua", 118]],
+    "poses": [
+      {
+        "cad": [160, 148],
+        "pieN": [180, 174],
+        "pieF": [140, 172],
+        "manN": [190, 146],
+        "manF": [130, 148],
+        "flexRod": -1
+      },
+      {
+        "cad": [160, 146],
+        "pieN": [142, 174],
+        "pieF": [180, 172],
+        "manN": [132, 148],
+        "manF": [188, 146],
+        "flexRod": -1
+      }
+    ],
+    "cues": [
+      "En la parte honda, sin tocar el fondo ni agarrarte al borde.",
+      "Pedalea con las piernas y haz círculos con las manos bajo el agua.",
+      "Mantén la barbilla por encima del agua y respira tranquilo.",
+      "El agua es inestable a propósito: eso obliga al core a trabajar."
+    ],
+    "facil": "Cerca del borde, tocándolo si te falta el aire",
+    "dificil": "Con las manos fuera del agua los últimos segundos"
+  },
+  "flexionBorde": {
+    "nombre": "Flexiones en el borde",
+    "musculos": ["Pecho", "Hombros", "Brazos"],
+    "atrezo": [["agua", 150], ["mesa", 196, 316, 117]],
+    "poses": [
+      {
+        "cad": [131, 117],
+        "tors": -49,
+        "pieN": [80, 176],
+        "pieF": [70, 176],
+        "manN": [207, 114],
+        "manF": [199, 118],
+        "flexCod": 1
+      },
+      {
+        "cad": [143, 130],
+        "tors": -36,
+        "pieN": [80, 176],
+        "pieF": [70, 176],
+        "manN": [207, 114],
+        "manF": [199, 118],
+        "flexCod": 1
+      }
+    ],
+    "cues": [
+      "Manos en el borde de la piscina, mojadas: ahí está la gracia.",
+      "Cuerpo recto, y baja hasta que el pecho casi toque el borde.",
+      "El agarre resbala, así que agarra fuerte y ve despacio.",
+      "Si el borde está muy alto, sepárate más con los pies."
+    ],
+    "facil": "Más de pie, con los pies cerca del borde",
+    "dificil": "Pies más lejos, con el cuerpo más horizontal"
+  },
+  "escaleras": {
+    "nombre": "Subir escaleras",
+    "musculos": ["Piernas", "Glúteos", "Pulso"],
+    "ritmo": 1600,
+    "atrezo": [["escalera", 176, 34, 26, 4]],
+    "poses": [
+      {
+        "cad": [150, 108],
+        "tors": -84,
+        "pieN": [186, 150],
+        "pieF": [140, 176],
+        "manN": [138, 132],
+        "manF": [172, 128],
+        "flexRod": -1
+      },
+      {
+        "cad": [166, 96],
+        "tors": -84,
+        "pieN": [200, 124],
+        "pieF": [170, 150],
+        "manN": [176, 118],
+        "manF": [150, 122],
+        "flexRod": -1
+      }
+    ],
+    "cues": [
+      "Sube apoyando el pie entero en cada escalón, no solo la punta.",
+      "Empuja con el talón de la pierna de arriba, sin tirar del pasamanos.",
+      "Baja mirando dónde pisas y sin correr: bajar es donde uno se cae.",
+      "Sube y baja sin parar el tiempo que toque."
+    ],
+    "facil": "Un escalón cada vez y agarrándote al pasamanos",
+    "dificil": "De dos en dos al subir, o con la mochila cargada"
+  },
+  "arrastre": {
+    "nombre": "Arrastre militar",
+    "musculos": ["Core", "Hombros", "Todo el cuerpo"],
+    "ritmo": 2400,
+    "atrezo": [["esterilla", 76, 296]],
+    "poses": [
+      {
+        "cad": [168, 164],
+        "tors": 4,
+        "pieN": [98, 170],
+        "pieF": [90, 174],
+        "manN": [250, 172],
+        "manF": [198, 176],
+        "flexRod": -1,
+        "flexCod": 1
+      },
+      {
+        "cad": [168, 164],
+        "tors": 4,
+        "pieN": [98, 176],
+        "pieF": [90, 168],
+        "manN": [204, 176],
+        "manF": [246, 172],
+        "flexRod": -1,
+        "flexCod": 1
+      }
+    ],
+    "cues": [
+      "Boca abajo y bien pegado al suelo, como si pasaras bajo un alambre.",
+      "Avanza con el codo de un lado y la rodilla del contrario a la vez.",
+      "La cadera no sube: si se levanta, ya no es arrastre.",
+      "Va despacio y cansa mucho. Es lo normal."
+    ],
+    "facil": "Sobre manos y rodillas, sin pegar el pecho al suelo",
+    "dificil": "Más bajo y más lento, sin apoyar las rodillas"
+  },
+  "cangrejo": {
+    "nombre": "Caminar de cangrejo",
+    "musculos": ["Core", "Brazos", "Glúteos"],
+    "ritmo": 2000,
+    "atrezo": [["esterilla", 76, 296]],
+    "poses": [
+      {
+        "cad": [162, 140],
+        "tors": 170,
+        "pieN": [200, 176],
+        "pieF": [192, 174],
+        "manN": [98, 176],
+        "manF": [108, 174],
+        "flexRod": -1,
+        "flexCod": -1
+      },
+      {
+        "cad": [162, 136],
+        "tors": 170,
+        "pieN": [186, 176],
+        "pieF": [204, 174],
+        "manN": [112, 176],
+        "manF": [96, 174],
+        "flexRod": -1,
+        "flexCod": -1
+      }
+    ],
+    "cues": [
+      "Siéntate, pon las manos detrás de ti con los dedos hacia los pies.",
+      "Levanta la cadera hasta que el tronco quede casi recto.",
+      "Camina hacia atrás moviendo mano y pie contrarios.",
+      "No dejes caer la cadera: si toca el suelo, se acabó el ejercicio."
+    ],
+    "facil": "Aguanta la posición sin avanzar, unos segundos",
+    "dificil": "Más pasos, más lento y con la cadera más alta"
+  },
+  "caminarCarga": { "igualQue": "caminar", "nombre": "Caminar con mochila", "peso": "espalda" },
+  "zancadaCarga": { "igualQue": "zancada", "nombre": "Zancadas con mochila", "peso": "espalda" },
+  "escalerasCarga": { "igualQue": "escaleras", "nombre": "Escaleras con mochila", "peso": "espalda" }
+}

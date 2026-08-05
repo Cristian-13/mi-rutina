@@ -1,0 +1,104 @@
+{
+  "calentamiento": [
+    "Caminar o trotar suave, de 5 a 10 minutos, hasta notar el pulso alto",
+    "Círculos de brazos hacia delante y hacia atrás, 30 s",
+    "10 sentadillas sin peso, lentas"
+  ],
+  "vuelta": [
+    "Caminata de 3 minutos, hasta que el pulso baje del todo",
+    "Cuádriceps de pie, 30 s cada pierna",
+    "Pecho en el marco de la puerta, 30 s"
+  ],
+  "postas": [
+    {
+      "id": "flexion1",
+      "ej": "flexion",
+      "tipo": "reps",
+      "meta": null,
+      "nota": "Todas las que te salgan con buena forma. Da igual si son 3 o si son 20: ahí es donde empiezas."
+    },
+    {
+      "id": "sentadilla",
+      "ej": "sentadilla",
+      "tipo": "reps",
+      "meta": 15,
+      "nota": "Sin descansar. Encadenas directamente desde las flexiones."
+    },
+    {
+      "id": "caminar1",
+      "ej": "caminar",
+      "tipo": "tiempo",
+      "meta": 30,
+      "sinRegistro": true,
+      "alias": "Caminar entre postas",
+      "nota": "De pie y andando. No te sientes."
+    },
+    {
+      "id": "flexion2",
+      "ej": "flexion",
+      "tipo": "reps",
+      "meta": null,
+      "alias": "Flexiones · 2.ª tanda",
+      "nota": "Van a salir menos que en la primera tanda. Ese es exactamente el objetivo: trabajar cansado."
+    },
+    {
+      "id": "plancha",
+      "ej": "plancha",
+      "tipo": "tiempo",
+      "meta": 20,
+      "nota": "Justo después de las flexiones, sin pausa."
+    },
+    {
+      "id": "zancada",
+      "ej": "zancada",
+      "tipo": "pasos",
+      "meta": 10,
+      "nota": "Caminando hacia delante: 10 pasos con cada pierna."
+    },
+    {
+      "id": "escalador",
+      "ej": "escalador",
+      "tipo": "tiempo",
+      "meta": 30,
+      "nota": "Aquí entra todo a la vez: brazos, core, piernas y pulso."
+    },
+    {
+      "id": "descanso",
+      "ej": "caminar",
+      "tipo": "tiempo",
+      "meta": 60,
+      "sinRegistro": true,
+      "respiro": true,
+      "alias": "Respiro caminando",
+      "nota": "El único respiro del circuito, y es caminando. Nada de sentarse."
+    },
+    {
+      "id": "burpee",
+      "ej": "burpee",
+      "tipo": "reps",
+      "meta": 5,
+      "nota": "La parte que construye la cabeza, más que las piernas.",
+      "alt": {
+        "ej": "jack",
+        "tipo": "tiempo",
+        "meta": 45,
+        "motivo": "Los burpees son avanzados de verdad."
+      }
+    },
+    {
+      "id": "oso",
+      "ej": "oso",
+      "tipo": "pasos",
+      "meta": 10,
+      "medida": "pasos adelante y otros tantos atrás",
+      "nota": "10 pasos hacia delante y 10 hacia atrás. Imita los acarreos y los obstáculos del entrenamiento militar."
+    },
+    {
+      "id": "pared",
+      "ej": "pared",
+      "tipo": "tiempo",
+      "meta": 35,
+      "nota": "El desafío final, con las piernas ya agotadas de todo lo anterior."
+    }
+  ]
+}

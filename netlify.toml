@@ -29,10 +29,20 @@
   [headers.values]
     Cache-Control = "no-cache"
 
-# Los módulos y los iconos sí pueden cachearse: el service worker se encarga de
-# refrescarlos cuando toca.
+# Los módulos, los datos del circuito y los iconos sí pueden cachearse: el
+# service worker se encarga de refrescarlos cuando toca.
 [[headers]]
   for = "/js/*"
+  [headers.values]
+    Cache-Control = "public, max-age=3600"
+
+[[headers]]
+  for = "/datos/*"
+  [headers.values]
+    Cache-Control = "public, max-age=3600"
+
+[[headers]]
+  for = "/css/*"
   [headers.values]
     Cache-Control = "public, max-age=3600"
 
