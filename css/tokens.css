@@ -1,0 +1,70 @@
+/* Colores, tipografía y los dos temas.
+   Todo lo demás se sirve de estas variables: tocar aquí cambia la app entera. */
+
+  :root {
+    --ground: #EFF1F3;
+    --surface: #FFFFFF;
+    --surface-2: #E6E9ED;
+    --ink: #14171B;
+    --ink-2: #4C555F;
+    --ink-3: #7A838E;
+    --hair: #D8DCE1;
+    --hair-strong: #B9C0C8;
+    --accent: #B8830A;
+    --accent-ink: #7A5606;
+    --accent-bg: #F8EFD6;
+    --done: #2F7D5C;
+    --done-bg: #DEEFE7;
+    --hot: #C33F2C;
+    --fig-ink: #1F252B;
+    --fig-dim: #A9B2BB;
+    --fig-prop: #C6CDD4;
+    --fig-load: #B8830A;
+    --shadow: 0 1px 2px rgba(20,23,27,.06), 0 0 0 1px rgba(20,23,27,.04);
+
+    --display: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    --body: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    --data: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --ground: #0D1013; --surface: #161A1F; --surface-2: #1E242A;
+      --ink: #E9ECEF; --ink-2: #A4ADB7; --ink-3: #77808A;
+      --hair: #242A31; --hair-strong: #38414A;
+      --accent: #F2B92C; --accent-ink: #F2B92C; --accent-bg: #302509;
+      --done: #4FB585; --done-bg: #0F2E23; --hot: #E4614C;
+      --fig-ink: #DDE3E9; --fig-dim: #4B545D; --fig-prop: #39424B; --fig-load: #F2B92C;
+      --shadow: 0 0 0 1px rgba(255,255,255,.04);
+    }
+  }
+  :root[data-theme="dark"] {
+    --ground: #0D1013; --surface: #161A1F; --surface-2: #1E242A;
+    --ink: #E9ECEF; --ink-2: #A4ADB7; --ink-3: #77808A;
+    --hair: #242A31; --hair-strong: #38414A;
+    --accent: #F2B92C; --accent-ink: #F2B92C; --accent-bg: #302509;
+    --done: #4FB585; --done-bg: #0F2E23; --hot: #E4614C;
+    --fig-ink: #DDE3E9; --fig-dim: #4B545D; --fig-prop: #39424B; --fig-load: #F2B92C;
+    --shadow: 0 0 0 1px rgba(255,255,255,.04);
+  }
+  :root[data-theme="light"] {
+    --ground: #EFF1F3; --surface: #FFFFFF; --surface-2: #E6E9ED;
+    --ink: #14171B; --ink-2: #4C555F; --ink-3: #7A838E;
+    --hair: #D8DCE1; --hair-strong: #B9C0C8;
+    --accent: #B8830A; --accent-ink: #7A5606; --accent-bg: #F8EFD6;
+    --done: #2F7D5C; --done-bg: #DEEFE7; --hot: #C33F2C;
+    --fig-ink: #1F252B; --fig-dim: #A9B2BB; --fig-prop: #C6CDD4; --fig-load: #B8830A;
+    --shadow: 0 1px 2px rgba(20,23,27,.06), 0 0 0 1px rgba(20,23,27,.04);
+  }
+
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0; background: var(--ground); color: var(--ink);
+    font-family: var(--body); font-size: 16px; line-height: 1.5;
+  }
+  .app { max-width: 560px; margin: 0 auto; padding-bottom: 92px; }
+  button { font: inherit; color: inherit; cursor: pointer; }
+  :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 2px; }
+  .num { font-family: var(--data); font-variant-numeric: tabular-nums; }
+
+  

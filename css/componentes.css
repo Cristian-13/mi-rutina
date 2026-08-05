@@ -1,0 +1,85 @@
+/* Piezas reutilizables: barra de pestañas, figuras, temporizador,
+   gráficos, tablas y avisos. */
+/* ───────── tabbar ───────── */
+  .tabbar {
+    position: fixed; left: 0; right: 0; bottom: 0; z-index: 40; background: var(--surface);
+    border-top: 1px solid var(--hair); display: grid; grid-template-columns: repeat(4, 1fr);
+    padding-bottom: env(safe-area-inset-bottom, 0);
+  }
+  .tabbar button {
+    background: none; border: 0; padding: 10px 4px 12px; border-top: 2px solid transparent; margin-top: -1px;
+    font-family: var(--display); font-size: 10px; font-weight: 700; letter-spacing: .1em;
+    text-transform: uppercase; color: var(--ink-3);
+    display: flex; flex-direction: column; align-items: center; gap: 5px;
+  }
+  .tabbar svg { width: 20px; height: 20px; stroke: currentColor; fill: none; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+  .tabbar button[aria-selected="true"] { color: var(--ink); border-top-color: var(--accent); }
+
+/* ───────── figuras ───────── */
+  .fig { display: block; width: 100%; aspect-ratio: 320 / 200; background: var(--surface-2); }
+  .fig.mini { width: 96px; aspect-ratio: 320 / 200; border-radius: 4px; flex: none; }
+  .figwrap { position: relative; background: var(--surface-2); }
+  .figwrap .tag {
+    position: absolute; left: 10px; top: 10px; font-family: var(--data); font-size: 10px;
+    letter-spacing: .1em; text-transform: uppercase; color: var(--ink-3);
+    background: var(--surface); border-radius: 3px; padding: 3px 7px;
+  }
+
+/* ───────── temporizador ───────── */
+  .timer {
+    position: fixed; left: 50%; transform: translateX(-50%); bottom: 78px; z-index: 45;
+    width: min(524px, calc(100% - 36px)); background: var(--ink); color: var(--ground);
+    border-radius: 6px; padding: 11px 14px; display: none; align-items: center; gap: 12px;
+    box-shadow: 0 6px 20px rgba(0,0,0,.22);
+  }
+  .timer.on { display: flex; }
+  .timer svg { width: 40px; height: 40px; flex: none; }
+  .timer .t { font-family: var(--data); font-size: 21px; font-variant-numeric: tabular-nums; font-weight: 600; }
+  .timer .lbl { font-family: var(--data); font-size: 10.5px; letter-spacing: .1em; text-transform: uppercase; opacity: .6; }
+  .timer .mid { flex: 1; min-width: 0; }
+  .timer button { background: transparent; border: 1px solid rgba(255,255,255,.26); color: inherit; border-radius: 4px; padding: 6px 9px; font-family: var(--data); font-size: 12px; }
+
+/* ───────── estadísticas ───────── */
+  .mapa { display: grid; grid-template-columns: repeat(12, 1fr); gap: 3px; padding: 14px 16px 6px; }
+  .mapa .col { display: grid; grid-template-rows: repeat(7, 1fr); gap: 3px; }
+  .mapa i { aspect-ratio: 1; border-radius: 2px; background: var(--surface-2); }
+  .mapa i.on { background: var(--done); }
+  .mapa i.hoy { box-shadow: inset 0 0 0 1.5px var(--accent); }
+  .mapa-pie { display: flex; justify-content: space-between; padding: 0 16px 14px; font-family: var(--data); font-size: 10px; color: var(--ink-3); }
+  table.recs { width: 100%; border-collapse: collapse; font-size: 14px; }
+  table.recs th, table.recs td { text-align: left; padding: 10px 16px; border-top: 1px solid var(--hair); }
+  table.recs th { font-family: var(--data); font-size: 9.5px; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-3); font-weight: 400; border-top: 0; }
+  table.recs td.n { font-family: var(--data); text-align: right; font-variant-numeric: tabular-nums; }
+  .repartos { display: flex; height: 10px; border-radius: 5px; overflow: hidden; margin: 14px 16px 8px; gap: 2px; }
+  .repartos i { display: block; }
+  .leyenda { display: flex; flex-wrap: wrap; gap: 10px 16px; padding: 0 16px 14px; }
+  .leyenda span { font-family: var(--data); font-size: 11px; color: var(--ink-2); display: flex; align-items: center; gap: 6px; }
+  .leyenda b { width: 9px; height: 9px; border-radius: 2px; display: block; }
+  .kpis { display: grid; grid-template-columns: repeat(2, 1fr); }
+  .kpis > div { padding: 14px 16px; border-top: 1px solid var(--hair); border-right: 1px solid var(--hair); }
+  .kpis > div:nth-child(-n+2) { border-top: 0; }
+  .kpis > div:nth-child(2n) { border-right: 0; }
+  .kpis .v { font-family: var(--data); font-size: 24px; font-weight: 600; letter-spacing: -.03em; font-variant-numeric: tabular-nums; }
+  .kpis .l { font-family: var(--data); font-size: 9.5px; letter-spacing: .11em; text-transform: uppercase; color: var(--ink-3); margin-top: 3px; }
+  .kpis .d { font-family: var(--data); font-size: 11px; margin-top: 5px; }
+  .hallazgos { display: flex; flex-direction: column; }
+  .hallazgo { padding: 14px 16px; border-top: 1px solid var(--hair); display: flex; gap: 12px; }
+  .hallazgo:first-child { border-top: 0; }
+  .hallazgo .marca { width: 4px; border-radius: 2px; flex: none; background: var(--ink-3); }
+  .hallazgo.tipo-accion .marca { background: var(--accent); }
+  .hallazgo.tipo-aviso .marca { background: var(--hot); }
+  .hallazgo.tipo-bien .marca { background: var(--done); }
+  .hallazgo b { display: block; font-family: var(--display); font-size: 15px; margin-bottom: 3px; }
+  .hallazgo p { font-size: 14px; margin: 0; }
+  table.fichas { width: 100%; border-collapse: collapse; font-size: 13.5px; }
+  table.fichas th, table.fichas td { text-align: left; padding: 9px 16px; border-top: 1px solid var(--hair); }
+  table.fichas th { font-family: var(--data); font-size: 9.5px; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-3); font-weight: 400; border-top: 0; }
+  table.fichas td.n { font-family: var(--data); text-align: right; font-variant-numeric: tabular-nums; }
+  .etq { font-family: var(--data); font-size: 10px; letter-spacing: .06em; text-transform: uppercase; padding: 2px 6px; border-radius: 3px; background: var(--surface-2); color: var(--ink-2); }
+  .etq.subiendo { background: var(--done-bg); color: var(--done); }
+  .etq.estancado { background: var(--accent-bg); color: var(--accent-ink); }
+  .etq.bajando { background: rgba(195,63,44,.12); color: var(--hot); }
+  .alerta { background: var(--hot); color: #fff; border-radius: 7px; padding: 14px 16px; }
+  .alerta b { display: block; font-family: var(--display); font-size: 15px; margin-bottom: 4px; }
+  .alerta p { color: rgba(255,255,255,.9); font-size: 14px; margin: 0; max-width: none; }
+  .alerta .btn { background: #fff; border-color: #fff; color: var(--hot); margin-top: 12px; }

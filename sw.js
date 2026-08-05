@@ -3,11 +3,16 @@
    gimnasio, en el parque o con el móvil en modo avión. Al publicar una versión
    nueva basta con subir el número de CACHE. */
 
-const CACHE = "mi-rutina-v5";
+const CACHE = "mi-rutina-v6";
 const ARCHIVOS = [
   "./",
   "./index.html",
   "./manifest.webmanifest",
+  "./css/tokens.css",
+  "./css/base.css",
+  "./css/componentes.css",
+  "./css/pantallas.css",
+  "./js/analisis.js",
   "./icono-192.png",
   "./icono-512.png",
   "./icono-maskable.png"

@@ -1,0 +1,34 @@
+/* Reset, tipografía base, botones y la estructura común a todas las pantallas. */
+/* ───────── estructura ───────── */
+  .screen { display: none; padding: 18px 18px 0; }
+  .screen.on { display: block; }
+  .stack { display: flex; flex-direction: column; gap: 20px; }
+  .row { display: flex; align-items: center; gap: 10px; }
+  h2.sec { margin: 0 0 9px; font-family: var(--display); font-size: 12px; font-weight: 800; letter-spacing: .13em; text-transform: uppercase; color: var(--ink-2); }
+  p { margin: 0 0 10px; color: var(--ink-2); max-width: 62ch; }
+  p:last-child { margin-bottom: 0; }
+  .panel { background: var(--surface); border-radius: 6px; box-shadow: var(--shadow); overflow: hidden; }
+  .panel > .pad { padding: 16px; }
+  .note { font-family: var(--data); font-size: 11.5px; color: var(--ink-3); line-height: 1.65; padding: 10px 2px 0; }
+
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+    border: 1px solid var(--hair-strong); background: var(--surface); border-radius: 4px;
+    padding: 10px 14px; font-family: var(--display); font-size: 12.5px; font-weight: 700;
+    letter-spacing: .07em; text-transform: uppercase;
+  }
+  .btn:hover { border-color: var(--ink-3); }
+  .btn.primary { background: var(--accent); border-color: var(--accent); color: #17100 4; color: #1A1204; width: 100%; padding: 15px; font-size: 14px; letter-spacing: .1em; }
+  .btn.primary:hover { filter: brightness(1.07); }
+  .btn.small { padding: 6px 10px; font-size: 11px; }
+  .btn.ghost { background: transparent; }
+  .btn.wide { width: 100%; }
+
+/* ───────── topbar ───────── */
+  .topbar {
+    position: sticky; top: 0; z-index: 30; background: var(--ground);
+    border-bottom: 1px solid var(--hair);
+    display: flex; align-items: center; gap: 10px; padding: 13px 18px 11px;
+  }
+  .topbar h1 { margin: 0; font-family: var(--display); font-size: 14px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; }
+  .topbar .sub { font-family: var(--data); font-size: 11px; color: var(--ink-3); letter-spacing: .03em; margin-left: auto; }
