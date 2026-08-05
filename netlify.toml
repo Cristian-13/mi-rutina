@@ -1,0 +1,42 @@
+# Configuración de despliegue.
+# El sitio es estático: no hay nada que construir, los archivos se publican tal
+# cual desde la raíz del repositorio.
+
+[build]
+  publish = "."
+  command = "echo 'sitio estatico: nada que construir'"
+
+[build.environment]
+  # Sin esto, Netlify instalaría Playwright en cada despliegue por estar en el
+  # package.json. Es una dependencia solo de pruebas y no pinta nada aquí.
+  NPM_FLAGS = "--production"
+
+# El service worker y el documento nunca deben quedarse cacheados en el CDN:
+# si se quedan, los móviles que ya tienen la app instalada no se enteran de que
+# hay una versión nueva y siguen abriendo la vieja para siempre.
+[[headers]]
+  for = "/sw.js"
+  [headers.values]
+    Cache-Control = "no-cache, no-store, must-revalidate"
+
+[[headers]]
+  for = "/index.html"
+  [headers.values]
+    Cache-Control = "no-cache"
+
+[[headers]]
+  for = "/manifest.webmanifest"
+  [headers.values]
+    Cache-Control = "no-cache"
+
+# Los módulos y los iconos sí pueden cachearse: el service worker se encarga de
+# refrescarlos cuando toca.
+[[headers]]
+  for = "/js/*"
+  [headers.values]
+    Cache-Control = "public, max-age=3600"
+
+[[headers]]
+  for = "/*.png"
+  [headers.values]
+    Cache-Control = "public, max-age=86400"
