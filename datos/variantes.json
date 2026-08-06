@@ -1,0 +1,70 @@
+{
+  "accesos": {
+    "piscina": "una piscina, un lago o la playa",
+    "mochila": "una mochila y peso que meterle",
+    "escaleras": "unas escaleras",
+    "espacio": "sitio para tumbarte y arrastrarte"
+  },
+  "variantes": {
+    "base": {
+      "nombre": "Entrenamiento básico",
+      "corto": "Básico",
+      "falta": null,
+      "resumen": "El circuito tal cual. Es el que hay que dominar antes de tocar nada.",
+      "calentamiento": null,
+      "postas": {}
+    },
+    "agua": {
+      "nombre": "Guerrero del agua",
+      "corto": "Agua",
+      "falta": "piscina",
+      "resumen": "El agua añade resistencia e inestabilidad, y obliga al core a trabajar el doble.",
+      "calentamiento": "Nadar largos suaves, de 3 a 4 minutos",
+      "postas": {
+        "flexion1": { "ej": "flexionBorde" },
+        "flexion2": { "ej": "flexionBorde" },
+        "escalador": { "ej": "flote", "tipo": "tiempo", "meta": 40 }
+      }
+    },
+    "carga": {
+      "nombre": "Portador de carga",
+      "corto": "Carga",
+      "falta": "mochila",
+      "resumen": "Con 5 a 10 kilos a la espalda: la fuerza de moverse cargando equipo.",
+      "calentamiento": "Caminar o trotar suave con la mochila puesta, de 5 a 10 minutos",
+      "postas": {
+        "caminar1": { "ej": "caminarCarga" },
+        "descanso": { "ej": "caminarCarga" },
+        "zancada": { "ej": "zancadaCarga" },
+        "flexion1": { "nota": "Quítate la mochila para las flexiones: cargada te machaca los hombros." },
+        "plancha": { "nota": "Sin mochila también, que la lumbar lo acusa." }
+      }
+    },
+    "escaleras": {
+      "nombre": "Ataque de escaleras",
+      "corto": "Escaleras",
+      "falta": "escaleras",
+      "resumen": "Las escaleras sustituyen a las caminatas y parten el circuito en dos alturas.",
+      "calentamiento": "Subir y bajar escaleras, 5 minutos",
+      "postas": {
+        "caminar1": { "ej": "escaleras" },
+        "descanso": { "ej": "escaleras" },
+        "flexion1": { "nota": "Hazlas arriba del todo, nada más terminar de subir." },
+        "sentadilla": { "nota": "Estas van abajo, al terminar de bajar el tramo." }
+      }
+    },
+    "suelo": {
+      "nombre": "Luchador del suelo",
+      "corto": "Suelo",
+      "falta": "espacio",
+      "resumen": "Todo lo que era caminar pasa a ser arrastre. Es la más dura de las cuatro.",
+      "calentamiento": null,
+      "postas": {
+        "caminar1": { "ej": "arrastre", "tipo": "tiempo", "meta": 30 },
+        "descanso": { "ej": "arrastre", "tipo": "tiempo", "meta": 45 },
+        "oso": { "ej": "cangrejo" },
+        "zancada": { "nota": "En el sitio: un paso hacia delante y otro hacia atrás, sin avanzar." }
+      }
+    }
+  }
+}

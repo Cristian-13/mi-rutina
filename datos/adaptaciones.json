@@ -1,0 +1,33 @@
+{
+  "rodilla": {
+    "zancada": {
+      "ej": "marcha",
+      "tipo": "tiempo",
+      "meta": 30,
+      "aviso": "Cambiado por tus rodillas: mismo trabajo de piernas y pulso, sin flexionar bajo carga."
+    },
+    "pared": { "aviso": "Por tus rodillas: baja solo hasta media altura y para si notas pinchazos." },
+    "burpee": { "usarAlt": true, "aviso": "Por tus rodillas, mejor los jumping jacks que los burpees." }
+  },
+  "hombro": {
+    "flexion1": {
+      "aviso": "Por tus hombros: hazlas apoyado en una mesa o en la pared, con los codos cerca del cuerpo."
+    },
+    "flexion2": { "aviso": "En la mesa o en la pared, igual que la primera tanda." },
+    "oso": {
+      "ej": "marcha",
+      "tipo": "tiempo",
+      "meta": 30,
+      "aviso": "Cambiado por tus hombros: el gateo carga todo el peso sobre ellos."
+    },
+    "escalador": { "aviso": "Por tus hombros: apoya las manos en una silla en vez de en el suelo." }
+  },
+  "espalda": {
+    "burpee": {
+      "usarAlt": true,
+      "aviso": "Por tu zona lumbar: los jumping jacks no castigan la espalda al bajar."
+    },
+    "oso": { "aviso": "Por tu zona lumbar: mantén la cadera baja y no dejes que se arquee." },
+    "zancada": { "aviso": "Por tu zona lumbar: tronco recto y sin inclinarte hacia delante." }
+  }
+}

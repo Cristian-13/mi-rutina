@@ -1,7 +1,10 @@
 /* Service worker de Mi Rutina.
    Guarda la app entera en el dispositivo para que abra sin conexión: en el
    gimnasio, en el parque o con el móvil en modo avión. Al publicar una versión
-   nueva basta con subir el número de CACHE. */
+   nueva basta con subir el número de VERSION_APP.
+
+   La lista de abajo tiene que llevar todos los módulos y todos los datos: lo
+   que no esté aquí, sin conexión no está. Las pruebas lo comprueban. */
 
 importScripts("./version.js");
 
@@ -13,11 +16,43 @@ const ARCHIVOS = [
   "./index.html",
   "./manifest.webmanifest",
   "./version.js",
+
   "./css/tokens.css",
   "./css/base.css",
   "./css/componentes.css",
   "./css/pantallas.css",
+
+  "./datos/ejercicios.json",
+  "./datos/circuito.json",
+  "./datos/variantes.json",
+  "./datos/adaptaciones.json",
+
+  "./js/app.js",
+  "./js/almacen.js",
   "./js/analisis.js",
+  "./js/catalogo.js",
+  "./js/circuito.js",
+  "./js/copia.js",
+  "./js/figuras.js",
+  "./js/graficos.js",
+  "./js/instalacion.js",
+  "./js/navegacion.js",
+  "./js/plan.js",
+  "./js/plantilla.js",
+  "./js/postura.js",
+  "./js/puente-pruebas.js",
+  "./js/registro.js",
+  "./js/util.js",
+
+  "./js/pantallas/guia.js",
+  "./js/pantallas/guiado.js",
+  "./js/pantallas/hoy.js",
+  "./js/pantallas/onboarding.js",
+  "./js/pantallas/progreso.js",
+  "./js/pantallas/resumen.js",
+  "./js/pantallas/rutinas.js",
+  "./js/pantallas/sesion.js",
+
   "./icono-192.png",
   "./icono-512.png",
   "./icono-maskable.png"
