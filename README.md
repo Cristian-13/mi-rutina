@@ -83,6 +83,25 @@ Sube el número de `VERSION_APP` en `version.js`. De ahí lo leen la página y e
 service worker, así que con eso basta: los móviles que ya la tengan instalada
 descartan lo guardado y se traen la versión nueva.
 
+## Trabajar en el proyecto con Claude Code
+
+El repositorio trae configurados unos plugins de Claude Code (`.claude/settings.json`)
+y el servidor MCP de Playwright (`.mcp.json`), que se cargan solos al abrir una
+sesión aquí. Para tenerlos también en tu computador y en el resto de tus
+proyectos, ejecuta una vez:
+
+```sh
+bash scripts/setup-claude-plugins.sh
+```
+
+| Plugin | Para qué |
+|---|---|
+| `superpowers` | Skills de desarrollo: TDD, depuración sistemática, planes, worktrees |
+| `frontend-design` | Diseño de interfaces |
+| `ralph-wiggum` | Bucles autónomos: `/ralph-loop "tarea" --max-iterations 10` |
+| `context7` | Documentación de librerías al día: `/context7:docs <librería>` |
+| Playwright (MCP) | Control del navegador y pruebas de la app |
+
 ## Aviso
 
 Es información general para empezar a moverse, no consejo médico. Si tienes una
