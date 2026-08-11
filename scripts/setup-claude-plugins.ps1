@@ -51,10 +51,13 @@ npx -y playwright install chromium
 Write-Host "==> Instalando graphify (grafo de conocimiento del proyecto)"
 # OJO: el paquete en PyPI es 'graphifyy' con doble y; el comando es 'graphify'.
 if (Have "uv") {
-  uv tool install graphifyy
+  # --force: sin el, uv aborta con "Executables already exist" si un graphify.exe
+  # previo ocupa el nombre, y deja un trampolin roto que luego falla con
+  # "failed to canonicalize script path". Tambien hace el script re-ejecutable.
+  uv tool install --force graphifyy
   uv tool update-shell 2>&1 | Out-Null
 } elseif (Have "pipx") {
-  pipx install graphifyy
+  pipx install --force graphifyy
   pipx ensurepath 2>&1 | Out-Null
 } else {
   Write-Host "    Ni 'uv' ni 'pipx' encontrados. Instalando uv..."

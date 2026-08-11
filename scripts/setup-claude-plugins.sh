@@ -47,9 +47,12 @@ npx -y playwright install chromium || echo "    (fallo la descarga; ejecuta 'npx
 echo "==> Instalando graphify (grafo de conocimiento del proyecto)"
 # OJO: el paquete en PyPI es 'graphifyy' con doble y; el comando es 'graphify'.
 if command -v uv >/dev/null 2>&1; then
-  uv tool install graphifyy && uv tool update-shell >/dev/null 2>&1
+  # --force: sin el, uv aborta con "Executables already exist" si un graphify
+  # previo ocupa el nombre, y deja un trampolin roto que luego falla con
+  # "failed to canonicalize script path". Tambien hace el script re-ejecutable.
+  uv tool install --force graphifyy && uv tool update-shell >/dev/null 2>&1
 elif command -v pipx >/dev/null 2>&1; then
-  pipx install graphifyy && pipx ensurepath >/dev/null 2>&1
+  pipx install --force graphifyy && pipx ensurepath >/dev/null 2>&1
 else
   echo "    Ni 'uv' ni 'pipx' encontrados. Instala uno de los dos y vuelve a ejecutar:"
   echo "      curl -LsSf https://astral.sh/uv/install.sh | sh"
