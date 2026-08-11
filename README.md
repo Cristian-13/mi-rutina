@@ -83,6 +83,77 @@ Sube el número de `VERSION_APP` en `version.js`. De ahí lo leen la página y e
 service worker, así que con eso basta: los móviles que ya la tengan instalada
 descartan lo guardado y se traen la versión nueva.
 
+## Trabajar en el proyecto con Claude Code
+
+El repositorio trae configurados unos plugins de Claude Code (`.claude/settings.json`)
+y el servidor MCP de Playwright (`.mcp.json`), que se cargan solos al abrir una
+sesión aquí. Para tenerlos también en tu computador y en el resto de tus
+proyectos, ejecuta una vez:
+
+```sh
+bash scripts/setup-claude-plugins.sh                                   # macOS y Linux
+powershell -ExecutionPolicy Bypass -File scripts\setup-claude-plugins.ps1   # Windows
+```
+
+Entre otras cosas, el script ejecuta `graphify install`, que registra en tu
+perfil los hooks que empujan a Claude a consultar el grafo antes de rastrear el
+código. Esos hooks llevan incrustada la ruta del ejecutable de tu máquina, por
+eso se generan en cada equipo y no se versionan aquí.
+
+**Si en Windows el script se para en `uv tool install` con `os error 32`
+("El proceso no tiene acceso al archivo...")**, es que un `graphify-mcp.exe` de
+una sesión anterior de Claude Code sigue vivo y tiene el ejecutable abierto.
+Ciérralo y reintenta:
+
+```powershell
+Get-Process | Where-Object { $_.Path -like "*graphify*" } | Stop-Process -Force
+uv tool install --force graphifyy
+```
+
+| Plugin | Para qué |
+|---|---|
+| `superpowers` | Skills de desarrollo: TDD, depuración sistemática, planes, worktrees |
+| `frontend-design` | Diseño de interfaces |
+| `ralph-wiggum` | Bucles autónomos: `/ralph-loop "tarea" --max-iterations 10` |
+| `context7` | Documentación de librerías al día: `/context7:docs <librería>` |
+| Playwright (MCP) | Control del navegador y pruebas de la app |
+| `graphify` | Convierte el proyecto en un grafo de conocimiento consultable |
+
+### Obsidian + graphify
+
+`graphify` recorre el proyecto y lo convierte en un grafo: cada función, archivo
+y concepto es un nodo, con las relaciones entre ellos explicadas. En vez de
+rastrear `index.html` entero a base de búsquedas, Claude consulta el grafo, que
+es mucho más pequeño. Y ese mismo grafo se puede exportar como vault de
+Obsidian, para navegarlo tú a mano.
+
+Obsidian es una app de escritorio, así que se instala aparte desde
+[obsidian.md](https://obsidian.md/download). Después:
+
+```
+/graphify . --obsidian
+```
+
+Eso deja el grafo en `graphify-out/` y el vault en `graphify-out/obsidian/`, que
+se abre en Obsidian con *Abrir carpeta como vault*. Incluye un `graph.canvas`
+para ver el mapa completo. La carpeta está en `.gitignore`: se regenera en cada
+máquina, no se versiona.
+
+Para consultarlo desde la línea de órdenes:
+
+```sh
+graphify query "cómo se calcula la carga por sesión"
+graphify explain "hallazgos()"           # un nodo y sus vecinos
+graphify path "hallazgos()" "pct()"      # la relación entre dos piezas
+graphify god-nodes                       # las piezas más conectadas
+graphify update .                        # refrescar tras tocar código, sin coste de API
+```
+
+El mapeo de código es local y determinista, con tree-sitter: no sale nada de tu
+máquina ni cuesta tokens. La pasada semántica sobre `index.html`, la
+documentación y las imágenes sí usa el modelo de tu sesión, y por eso conviene
+lanzarla desde `/graphify .` dentro de Claude Code en vez de por consola.
+
 ## Aviso
 
 Es información general para empezar a moverse, no consejo médico. Si tienes una
