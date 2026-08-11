@@ -78,6 +78,42 @@ bash scripts/setup-claude-plugins.sh
 | `ralph-wiggum` | Bucles autónomos: `/ralph-loop "tarea" --max-iterations 10` |
 | `context7` | Documentación de librerías al día: `/context7:docs <librería>` |
 | Playwright (MCP) | Control del navegador y pruebas de la app |
+| `graphify` | Convierte el proyecto en un grafo de conocimiento consultable |
+
+### Obsidian + graphify
+
+`graphify` recorre el proyecto y lo convierte en un grafo: cada función, archivo
+y concepto es un nodo, con las relaciones entre ellos explicadas. En vez de
+rastrear `index.html` entero a base de búsquedas, Claude consulta el grafo, que
+es mucho más pequeño. Y ese mismo grafo se puede exportar como vault de
+Obsidian, para navegarlo tú a mano.
+
+Obsidian es una app de escritorio, así que se instala aparte desde
+[obsidian.md](https://obsidian.md/download). Después:
+
+```
+/graphify . --obsidian
+```
+
+Eso deja el grafo en `graphify-out/` y el vault en `graphify-out/obsidian/`, que
+se abre en Obsidian con *Abrir carpeta como vault*. Incluye un `graph.canvas`
+para ver el mapa completo. La carpeta está en `.gitignore`: se regenera en cada
+máquina, no se versiona.
+
+Para consultarlo desde la línea de órdenes:
+
+```sh
+graphify query "cómo se calcula la carga por sesión"
+graphify explain "hallazgos()"           # un nodo y sus vecinos
+graphify path "hallazgos()" "pct()"      # la relación entre dos piezas
+graphify god-nodes                       # las piezas más conectadas
+graphify update .                        # refrescar tras tocar código, sin coste de API
+```
+
+El mapeo de código es local y determinista, con tree-sitter: no sale nada de tu
+máquina ni cuesta tokens. La pasada semántica sobre `index.html`, la
+documentación y las imágenes sí usa el modelo de tu sesión, y por eso conviene
+lanzarla desde `/graphify .` dentro de Claude Code en vez de por consola.
 
 ## Aviso
 

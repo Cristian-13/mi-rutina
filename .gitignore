@@ -1,2 +1,5 @@
 node_modules/
 package-lock.json
+graphify-out/
+.claude/settings.json.graphify-bak
+.claude/settings.local.json

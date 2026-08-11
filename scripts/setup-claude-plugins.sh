@@ -44,7 +44,37 @@ claude mcp add --scope user playwright -- npx -y @playwright/mcp@latest >/dev/nu
 echo "==> Descargando el navegador de Playwright (puede tardar un par de minutos)"
 npx -y playwright install chromium || echo "    (fallo la descarga; ejecuta 'npx playwright install chromium' a mano)"
 
+echo "==> Instalando graphify (grafo de conocimiento del proyecto)"
+# OJO: el paquete en PyPI es 'graphifyy' con doble y; el comando es 'graphify'.
+if command -v uv >/dev/null 2>&1; then
+  uv tool install graphifyy && uv tool update-shell >/dev/null 2>&1
+elif command -v pipx >/dev/null 2>&1; then
+  pipx install graphifyy && pipx ensurepath >/dev/null 2>&1
+else
+  echo "    Ni 'uv' ni 'pipx' encontrados. Instala uno de los dos y vuelve a ejecutar:"
+  echo "      curl -LsSf https://astral.sh/uv/install.sh | sh"
+fi
+
+export PATH="$HOME/.local/bin:$PATH"
+if command -v graphify >/dev/null 2>&1; then
+  echo "==> Registrando la skill de graphify para todos tus proyectos"
+  graphify install || echo "    (fallo el registro; ejecuta 'graphify install' a mano)"
+else
+  echo "    'graphify' no esta en el PATH todavia. Abre una terminal nueva y ejecuta 'graphify install'."
+fi
+
 echo
 echo "Listo. Reinicia Claude Code y comprueba con:"
 echo "  claude plugin list"
 echo "  claude mcp list"
+echo "  graphify --version"
+echo
+echo "Falta Obsidian, que es una app de escritorio y se instala aparte:"
+echo "  Descarga:  https://obsidian.md/download"
+echo "  macOS:     brew install --cask obsidian"
+echo "  Windows:   winget install Obsidian.Obsidian"
+echo "  Linux:     flatpak install flathub md.obsidian.Obsidian"
+echo
+echo "Luego, dentro de este proyecto:"
+echo "  1. En Claude Code:  /graphify . --obsidian"
+echo "  2. En Obsidian:     Abrir carpeta como vault -> graphify-out/obsidian/"
