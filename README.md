@@ -77,6 +77,16 @@ perfil los hooks que empujan a Claude a consultar el grafo antes de rastrear el
 código. Esos hooks llevan incrustada la ruta del ejecutable de tu máquina, por
 eso se generan en cada equipo y no se versionan aquí.
 
+**Si en Windows el script se para en `uv tool install` con `os error 32`
+("El proceso no tiene acceso al archivo...")**, es que un `graphify-mcp.exe` de
+una sesión anterior de Claude Code sigue vivo y tiene el ejecutable abierto.
+Ciérralo y reintenta:
+
+```powershell
+Get-Process | Where-Object { $_.Path -like "*graphify*" } | Stop-Process -Force
+uv tool install --force graphifyy
+```
+
 | Plugin | Para qué |
 |---|---|
 | `superpowers` | Skills de desarrollo: TDD, depuración sistemática, planes, worktrees |
