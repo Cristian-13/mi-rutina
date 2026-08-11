@@ -68,8 +68,14 @@ sesión aquí. Para tenerlos también en tu computador y en el resto de tus
 proyectos, ejecuta una vez:
 
 ```sh
-bash scripts/setup-claude-plugins.sh
+bash scripts/setup-claude-plugins.sh                                   # macOS y Linux
+powershell -ExecutionPolicy Bypass -File scripts\setup-claude-plugins.ps1   # Windows
 ```
+
+Entre otras cosas, el script ejecuta `graphify install`, que registra en tu
+perfil los hooks que empujan a Claude a consultar el grafo antes de rastrear el
+código. Esos hooks llevan incrustada la ruta del ejecutable de tu máquina, por
+eso se generan en cada equipo y no se versionan aquí.
 
 | Plugin | Para qué |
 |---|---|
