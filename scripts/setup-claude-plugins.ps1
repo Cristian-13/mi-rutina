@@ -8,6 +8,11 @@
 
 $ErrorActionPreference = "Continue"
 
+# uv y sus herramientas (graphify) aterrizan aqui. Windows no refresca el PATH de
+# una consola ya abierta, asi que lo anadimos a mano para esta sesion: sin esto,
+# el 'graphify install' del final no encontraria el ejecutable recien instalado.
+$env:PATH = "$env:USERPROFILE\.local\bin;$env:PATH"
+
 function Have($name) { return [bool](Get-Command $name -ErrorAction SilentlyContinue) }
 
 if (-not (Have "claude")) {
@@ -52,8 +57,17 @@ if (Have "uv") {
   pipx install graphifyy
   pipx ensurepath 2>&1 | Out-Null
 } else {
-  Write-Host "    Ni 'uv' ni 'pipx' encontrados. Instala uv y vuelve a ejecutar:"
-  Write-Host "      winget install astral-sh.uv"
+  Write-Host "    Ni 'uv' ni 'pipx' encontrados. Instalando uv..."
+  # Instalador oficial de Astral: deja uv.exe en %USERPROFILE%\.local\bin, que ya
+  # esta en el PATH de esta sesion (arriba). winget tambien sirve, pero coloca el
+  # binario en una ruta que cambia con la version y no podriamos anadirla aqui.
+  Invoke-RestMethod https://astral.sh/uv/install.ps1 | Invoke-Expression
+  if (Have "uv") {
+    uv tool install graphifyy
+  } else {
+    Write-Host "    No se pudo instalar uv. Hazlo a mano y vuelve a ejecutar este script:"
+    Write-Host "      winget install astral-sh.uv"
+  }
 }
 
 if (Have "graphify") {
